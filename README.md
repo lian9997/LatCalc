@@ -1,2 +1,2 @@
 # LatCalc
-hope could finish. 
+hope could finish. !
