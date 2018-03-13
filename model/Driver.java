@@ -7,7 +7,7 @@ public class Driver {
 		while(true) {
 			try {
 				System.out.printf("%f\n", test.multiSimpleBlock(in.nextLine()));
-				int a = 2;
+				int a = 3;
 			} catch (UnsupportException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
