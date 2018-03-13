@@ -34,7 +34,11 @@ public class Core {
 			}
 		}
 		if (charFound == -1) {
-			throw new UnsupportException();
+			if(data.matches("([0-9]+)([.]*)([0-9]*)")) {
+				return Double.parseDouble(data);
+			}else {
+				throw new UnsupportException();
+			}
 		} else {
 			arguments[0] = data.substring(0, charFound).trim();
 			char operator = data.charAt(charFound);
@@ -49,6 +53,7 @@ public class Core {
 	public String power(String data) throws UnsupportException {
 		int powerOperator = data.indexOf('^');
 		int before = -1, after = -1;
+		String base, power;
 		if(powerOperator == -1) {
 			return data;
 		}
@@ -58,15 +63,31 @@ public class Core {
 			String tmp = data.substring(before, after + 1);
 			String tmpResult = this.process(tmp);
 			data = data.replace(tmp, tmpResult);
+			powerOperator = data.indexOf('^');
 		}
+		
 		while(data.charAt(powerOperator + 1) == '(') {
 			after = data.indexOf(')', powerOperator);
 			before = data.lastIndexOf('(', after);
 			String tmp = data.substring(before, after + 1);
 			String tmpResult = this.process(tmp);
 			data = data.replace(tmp, tmpResult);
+			powerOperator = data.indexOf('^');
 		}
-		return "0";
+		before = this.operatorBefore(data, powerOperator);
+		after = this.operatorAfter(data, powerOperator);
+		if(before == -1) {
+			base = data.substring(0, powerOperator);
+		}else {
+			base = data.substring(before + 1, powerOperator);
+		}
+		if(after == -1) {
+			power = data.substring(powerOperator + 1, data.length());
+		}else {
+			power = data.substring(powerOperator + 1, after);
+		}
+		String tmpResult = Double.toString(Math.pow(Double.parseDouble(base), Double.parseDouble(power)));
+		return tmpResult;
 	}
 	public double multiSimpleBlock(String data) throws UnsupportException {
 		String tmp;
@@ -128,17 +149,16 @@ public class Core {
 	}
 
 	public String process(String data)throws UnsupportException {
-		double result = 0;
 		try {
 			if(data.indexOf('^') != -1) {
 				data = this.power(data);
 			}else {
-				result = this.multiSimpleBlock(data);
+				data = Double.toString(this.multiSimpleBlock(data));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return Double.toString(result);
+		return data;
 	}
 
 
