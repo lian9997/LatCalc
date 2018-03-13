@@ -62,7 +62,9 @@ public class Core {
 		while(data.charAt(powerOperator + 1) == '(') {
 			after = data.indexOf(')', powerOperator);
 			before = data.lastIndexOf('(', after);
-			
+			String tmp = data.substring(before, after + 1);
+			String tmpResult = this.process(tmp);
+			data = data.replace(tmp, tmpResult);
 		}
 		return "0";
 	}
