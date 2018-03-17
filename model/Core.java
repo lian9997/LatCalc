@@ -22,8 +22,10 @@ public class Core {
 	public double simpleBlock(String data) throws UnsupportException {
 		String arguments[] = new String[3];
 		data = data.trim();
-		int charFound = 0;
-		charFound = data.indexOf('+');
+		int charFound = -1;
+		charFound = this.operatorAfter(data, 0);
+		/*charFound = data.indexOf('+');
+		
 		if (charFound == -1) {
 			charFound = data.indexOf('-');
 			if (charFound == -1) {
@@ -32,7 +34,7 @@ public class Core {
 					data.indexOf('/');
 				}
 			}
-		}
+		}*/
 		if (charFound == -1) {
 			if(data.matches("([0-9]+)([.]*)([0-9]*)")) {
 				return Double.parseDouble(data);
@@ -186,14 +188,6 @@ public class Core {
 			int subtractionBefore = data.lastIndexOf('-', pos);
 			int operatorsBefore[] = { multiplicationBefore, divisionBefore, additionBefore, subtractionBefore };
 			Arrays.sort(operatorsBefore);
-
-			for (int i = 0; i < 4; i++) {
-				if (operatorsBefore[i] == -1) {
-					continue;
-				} else {
-					return operatorsBefore[i];
-				}
-			}
-			return -1;
+			return operatorsBefore[3];
 	}
 }
