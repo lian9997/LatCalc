@@ -6,6 +6,7 @@ public class Driver {
 		Scanner in = new Scanner(System.in);
 		while(true) {
 			try {
+				System.out.println("begin");
 				System.out.printf("%s\n", test.process(in.nextLine()));
 			} catch (UnsupportException e) {
 				// TODO Auto-generated catch block

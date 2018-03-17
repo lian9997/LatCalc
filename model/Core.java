@@ -89,6 +89,7 @@ public class Core {
 			power = data.substring(powerOperator + 1, after);
 		}
 		String tmpResult = Double.toString(Math.pow(Double.parseDouble(base), Double.parseDouble(power)));
+		tmpResult = data.replace(base + "^" + power, tmpResult);
 		return tmpResult;
 	}
 	public double multiSimpleBlock(String data) throws UnsupportException {
@@ -152,7 +153,9 @@ public class Core {
 
 	public String process(String data)throws UnsupportException {
 		try {
-			if(data.indexOf('^') != -1) {
+			if(data.matches("([0-9]+)([.]*)([0-9]*)")) {
+				return data;
+			}else if(data.indexOf('^') != -1) {
 				data = this.power(data);
 			}else {
 				data = Double.toString(this.multiSimpleBlock(data));
@@ -160,7 +163,7 @@ public class Core {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return data;
+		return this.process(data);
 	}
 
 
