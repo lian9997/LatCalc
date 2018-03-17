@@ -25,7 +25,6 @@ public class Core {
 		int charFound = -1;
 		charFound = this.operatorAfter(data, 0);
 		/*charFound = data.indexOf('+');
-		
 		if (charFound == -1) {
 			charFound = data.indexOf('-');
 			if (charFound == -1) {
