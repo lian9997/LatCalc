@@ -147,6 +147,7 @@ public class Core {
 			 * if(multiplication != -1) { if(division == -1 || multiplication < division) {
 			 * if(addition == -1 || multiplication < addition) { if(subtraction == -1 ||
 			 * multiplication < subtraction) { int nextOp } } } }
+			 * 
 			 */
 		}
 	}
